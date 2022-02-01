@@ -1,0 +1,38 @@
+@media (min-width: 768px) {
+  #service-image-text {
+    position: absolute;
+    left: initial;
+    bottom: initial;
+    height: 23%;
+    margin-top: 7%;
+    max-width: 19%;
+  }
+}
+
+@media (min-width: 1800px) {
+  #service-image-text {
+    position: absolute;
+    left: initial;
+    bottom: initial;
+    height: 23%;
+    margin-top: 7%;
+    max-width: 18%;
+  }
+}
+
+.table-row-link:hover {
+  background-color: rgb(214,215,217);
+}
+
+@media (min-width: 992px) {
+  #rev-cont {
+    min-height: 300px;
+  }
+}
+
+@media (min-width: 992px) {
+  .conteiner-nav {
+    min-height: 300px;
+  }
+}
+
