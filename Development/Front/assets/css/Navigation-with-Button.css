@@ -105,7 +105,6 @@
 
 h1 {
   transform: perspective(0px);
-  color: var(--bs-body-bg);
 }
 
 h1-text-carousel {
@@ -136,7 +135,7 @@ h1-carousel-text {
     position: absolute;
     left: initial;
     bottom: initial;
-    height: 12%;
+    height: 13%;
     margin-top: 38%;
     max-width: 90%;
   }
@@ -147,7 +146,7 @@ h1-carousel-text {
     position: absolute;
     left: initial;
     bottom: initial;
-    height: 22%;
+    height: 13%;
     margin-top: 15%;
     max-width: 45%;
   }

@@ -1,11 +1,9 @@
 @media (min-width: 768px) {
   #service-image-text {
     position: absolute;
-    left: initial;
-    bottom: initial;
-    height: 23%;
-    margin-top: 7%;
-    max-width: 19%;
+    line-height: 14%;
+    margin-top: 9%;
+    max-width: 500px;
   }
 }
 
@@ -34,5 +32,13 @@
   .conteiner-nav {
     min-height: 300px;
   }
+}
+
+#service-image-text:hover {
+  color: #6e96fe;
+}
+
+#service-image-text {
+  color: rgb(255,204,30);
 }
 
