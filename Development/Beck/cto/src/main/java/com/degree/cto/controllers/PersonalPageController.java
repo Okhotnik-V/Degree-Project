@@ -2,6 +2,7 @@ package com.degree.cto.controllers;
 
 import com.degree.cto.dtos.ReviewsDTO;
 import com.degree.cto.dtos.UsersDTO;
+import com.degree.cto.logic.Log.LogService;
 import com.degree.cto.repositorys.OrdersRepository;
 import com.degree.cto.repositorys.TransactionsInfoRepository;
 import com.degree.cto.repositorys.UsersRepository;
@@ -22,6 +23,7 @@ public class PersonalPageController {
 
     @Autowired
     private SecurityService securityService;
+
     @Autowired
     private PersonalPageService personalPageService;
 
@@ -30,8 +32,12 @@ public class PersonalPageController {
 
     @Autowired
     private TransactionsInfoRepository transactionsInfoRepository;
+
     @Autowired
     private OrdersRepository ordersRepository;
+
+    @Autowired
+    private LogService logService;
 
     @GetMapping("/personal-page")
     public String personalsPage(HttpServletRequest request) {
@@ -83,6 +89,7 @@ public class PersonalPageController {
         } else {
             personalPageService.createReviews(reviewsDTO, request.getUserPrincipal().getName());
             model.addAttribute("ReviewStatus", "Дякуємо за відгук!");
+            logService.addLog("log", "Відгук", "Новий відгук", "Користувач:@" + username + " Створив новий відгук: " + reviewsDTO.getText());
             return "personal-page";
         }
     }
@@ -94,6 +101,7 @@ public class PersonalPageController {
         dto.setPhone(usersDTO.getPhone());
         dto.setEmail(usersDTO.getEmail());
         usersRepository.save(dto);
+        logService.addLog("log", "Користувачі", "Зміна особистої інформації", "Користувач:@"+ username + " змінив особисту інформацію.");
         return "redirect:/@" + username;
     }
 }

@@ -2,6 +2,7 @@ package com.degree.cto.controllers;
 
 import com.degree.cto.dtos.TransactionsInfoDTO;
 import com.degree.cto.dtos.UsersDTO;
+import com.degree.cto.logic.Log.LogService;
 import com.degree.cto.repositorys.TransactionsInfoRepository;
 import com.degree.cto.repositorys.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class TransactionsInfoController {
 
     @Autowired
     private UsersRepository usersRepository;
+
+    @Autowired
+    private LogService logService;
 
     @GetMapping("/transactions/{numberTransactions}")
     public String transactions (@PathVariable(value = "numberTransactions") long numberTransactions, Model model) {
@@ -42,6 +46,7 @@ public class TransactionsInfoController {
         transactionsInfoDTO.setId(transactionsInfoRepository.findByNumber(numberTransactions).getId());
         transactionsInfoDTO.setNumber(numberTransactions);
         transactionsInfoRepository.save(transactionsInfoDTO);
+        logService.addLog("log", "Виплати", "Змінено інформацію про виплату", "Виплата №" + numberTransactions + " працівником:@" + transactionsInfoRepository.findByNumber(numberTransactions).getUsernameCreator());
         return "redirect:/transactions/" + numberTransactions;
     }
 
@@ -49,6 +54,7 @@ public class TransactionsInfoController {
     public String transactionsDell (@PathVariable(value = "numberTransactions") long numberTransactions) {
         TransactionsInfoDTO transactionsInfoDTO = transactionsInfoRepository.findByNumber(numberTransactions);
         transactionsInfoRepository.delete(transactionsInfoDTO);
+        logService.addLog("log", "Виплати", "Видалено інформацію про виплату", "Виплата №" + numberTransactions + " працівником:@" + transactionsInfoRepository.findByNumber(numberTransactions).getUsernameCreator());
         return "redirect:/accountant";
     }
 }

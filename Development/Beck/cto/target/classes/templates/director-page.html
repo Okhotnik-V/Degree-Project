@@ -82,20 +82,17 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Cистемні сповіщення</h4>
-                            <p style="text-align: left;font-size: 18px;"><span>Сповіщення:&nbsp;</span><br><span>01.01.2022</span><span>&nbsp;-&nbsp;</span><span>01.02.2022</span></p>
+                            <p style="text-align: left;font-size: 18px;"><span>Сповіщення:&nbsp;</span><br><span th:text="${DateLogStart}"></span><span>&nbsp;-&nbsp;</span><span th:text="${DateLogEnd}"></span></p>
                             <div class="accordion acocordion-1row" role="tablist" id="accordion-3">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-3 .item-1" aria-expanded="false" aria-controls="accordion-3 .item-1">Фільтр</button></h2>
                                     <div class="accordion-collapse collapse item-1" role="tabpanel" data-bs-parent="#accordion-3">
                                         <div class="accordion-body">
                                             <form>
-                                                <p style="height: 9px;">Системно програмні сповіщення:</p>
-                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Помилки</label></div>
-                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Логування</label></div>
-                                                <p style="height: 7px;">Сповіщення роботи сайту:</p>
                                                 <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-3"><label class="form-check-label" for="formCheck-3">Виплати</label></div>
                                                 <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-4"><label class="form-check-label" for="formCheck-4">Замовлення</label></div>
                                                 <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-5"><label class="form-check-label" for="formCheck-5">Працівники</label></div>
+                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-7"><label class="form-check-label" for="formCheck-7">Користувачі</label></div>
                                                 <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-6"><label class="form-check-label" for="formCheck-6">Відгуки</label></div>
                                                 <p><span>Від:</span><input class="form-control" type="datetime-local"></p>
                                                 <p><span>До:</span><input class="form-control" type="datetime-local"></p>
@@ -115,10 +112,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Cell 1</td>
-                                            <td>Cell 2</td>
-                                            <td>Cell 2</td>
+                                        <tr th:each="elLogs : ${Logs}">
+                                            <td th:text="${elLogs.title}"></td>
+                                            <td th:text="${elLogs.message}"></td>
+                                            <td th:text="${elLogs.date}"></td>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -1,7 +1,8 @@
 package com.degree.cto.security;
 
 import com.degree.cto.dtos.UsersDTO;
-import com.degree.cto.logic.AutoCreateCollections;
+import com.degree.cto.logic.OrderStatusDAO;
+import com.degree.cto.logic.Log.LogService;
 import com.degree.cto.repositorys.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,11 @@ public class SecurityService {
     @Autowired
     private UsersRepository userRepository;
 
+    @Autowired
+    private LogService logService;
 
-    private AutoCreateCollections autoCreateCollections;
+
+    private OrderStatusDAO autoCreateCollections;
 
     public String profileCheck(String url, String pageName, String personal_indent) {
         if (userRepository.findByPersonalIndent(personal_indent) == null) {
@@ -31,7 +35,6 @@ public class SecurityService {
         usersDTO.setStatus("Клієнт");
         usersDTO.setPhoto_url("/assets/img/not-image.jpg");
         userRepository.save(usersDTO);
-
-        System.out.println("Створено новий профіль");
+        logService.addLog("log", "Користувачі", "Новий користува", "Користувач:@"+ username + " приєднався до сервісу");
     }
 }

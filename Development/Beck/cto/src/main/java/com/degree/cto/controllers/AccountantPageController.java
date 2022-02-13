@@ -2,6 +2,7 @@ package com.degree.cto.controllers;
 
 import com.degree.cto.dtos.OrdersDTO;
 import com.degree.cto.dtos.TransactionsInfoDTO;
+import com.degree.cto.logic.Log.LogService;
 import com.degree.cto.repositorys.TransactionsInfoRepository;
 import com.degree.cto.services.AccountantPageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,10 @@ import java.util.List;
 public class AccountantPageController {
 
     @Autowired
-    private AccountantPageService accountantPageService;
+    private LogService logService;
+
     @Autowired
-    private TransactionsInfoRepository transactionsInfoRepository;
+    private AccountantPageService accountantPageService;
 
     @GetMapping("/accountant")
     public String accountantPage(Model model) {
@@ -34,9 +36,6 @@ public class AccountantPageController {
 
         model.addAttribute("Transactions", accountantPageService.transactionsInfoDTOS(accountantPageService.defaultDate()));
         model.addAttribute("TransactionsOrders", accountantPageService.ordersDTOList(accountantPageService.defaultDate()));
-
-        String[] date = new String[]{"1", "2" , "3", "4" , "5"};
-        model.addAttribute("ChartDate", date);
         return "accountant-page";
     }
 
@@ -52,14 +51,14 @@ public class AccountantPageController {
         model.addAttribute("Transactions", accountantPageService.transactionsInfoDTOS(infoDTO.logicDate));
         model.addAttribute("TransactionsOrders", accountantPageService.ordersDTOList(infoDTO.logicDate));
 
-        String[] date = new String[]{"1", "2" , "3", "4" , "5"};
-        model.addAttribute("ChartDate", date);
+        logService.addLog("log", "Виплата", infoDTO.getType(), "Виконано виплату №" + infoDTO.getNumber() +". Cума:" + infoDTO.money);
         return "accountant-page";
     }
 
     @PostMapping("/accountant/addCoast")
     public String accountantAddCoast(@ModelAttribute(value = "tDTO") TransactionsInfoDTO tDTO, HttpServletRequest request, Model model) {
         if (accountantPageService.addCoast(tDTO, request.getUserPrincipal().getName())) {
+            logService.addLog("log", "Виплата", tDTO.getType(), "Виконано виплату №" + tDTO.getNumber() +". Cума:" + tDTO.money);
             return "redirect:/accountant";
         } else {
             model.addAttribute("Error","Помилка: Потрібно заповнити усі поля!");

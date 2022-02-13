@@ -1,12 +1,10 @@
 package com.degree.cto.controllers;
 
 import com.degree.cto.dtos.*;
-import com.degree.cto.logic.AutoCreateCollections;
+import com.degree.cto.logic.OrderStatusDAO;
+import com.degree.cto.logic.Log.LogService;
 import com.degree.cto.repositorys.*;
-import com.degree.cto.services.HomeService;
 import com.degree.cto.services.OrderService;
-import org.bouncycastle.math.raw.Mod;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class OrderController {
@@ -24,8 +21,10 @@ public class OrderController {
 
     @Autowired
     private OrdersRepository ordersRepository;
+
     @Autowired
     private OrdersWorkTeamRepository ordersWorkTeamRepository;
+
     @Autowired
     private OrdersCheckRepository ordersCheckRepository;
 
@@ -36,7 +35,10 @@ public class OrderController {
     private OrderService orderService;
 
     @Autowired
-    private AutoCreateCollections autoCreateCollections;
+    private OrderStatusDAO autoCreateCollections;
+
+    @Autowired
+    private LogService logService;
 
     @GetMapping("/order/{numberOrder}")
     public String order(@PathVariable(value = "numberOrder") long numberOrder, Model model) {
@@ -93,6 +95,7 @@ public class OrderController {
 
         model.addAttribute("OrdersCheckDTOList", ordersCheckDTOList);
         model.addAttribute("ordersWorkTeamDTOList", ordersWorkTeamDTOList);
+
         return "order-edit";
     }
 
@@ -107,6 +110,7 @@ public class OrderController {
         model.addAttribute("ordersWorkTeamDTOList", ordersWorkTeamDTOList);
 
         if (orderService.orderCreate(ordersDTOEdit, request.getUserPrincipal().getName()) == null) {
+            logService.addLog("log", "Замовлення", "Редагування замовлення", "Замовлення №" + numberOrder + "Успішно змінено " + "працівником:@" + request.getUserPrincipal().getName());
             return "redirect:/order/" + ordersDTO.getOrderNumber() + "/edit";
         } else {
             return String.valueOf(model.getAttribute("editSaveLink"));
@@ -116,24 +120,28 @@ public class OrderController {
     @PostMapping("/order/{numberOrder}/edit/team/add")
     public String orderEditAddTeam(@PathVariable(value = "numberOrder") long numberOrder, @ModelAttribute(value = "ordersWorkTeamDTO") OrdersWorkTeamDTO ordersWorkTeamDTO, Model model) {
         orderService.orderAddTeam(ordersWorkTeamDTO, numberOrder);
+        logService.addLog("log", "Замовлення", "Редагування замовлення", "Замовлення №" + numberOrder + "Успішно змінено, додано виконавця замовлення: " + ordersWorkTeamDTO.getUsername());
         return "redirect:/order/" + numberOrder + "/edit";
     }
 
     @GetMapping("/order/{numberOrder}/edit/team/del")
     public String orderEditDelTeam(@RequestParam String del, @PathVariable(value = "numberOrder") long numberOrder, Model model) {
         orderService.orderDellTeam(del, numberOrder);
+        logService.addLog("log", "Замовлення", "Редагування замовлення", "Замовлення №" + numberOrder + "Успішно змінено, видалено виконавця замовлення: " +  del);
         return "redirect:/order/" + numberOrder + "/edit";
     }
 
     @PostMapping("/order/{numberOrder}/edit/check/add")
     public String orderEditAddCheck(@PathVariable(value = "numberOrder") long numberOrder, @ModelAttribute(value = "ordersCheckDTO") OrdersCheckDTO ordersCheckDTO, Model model) {
         orderService.orderAddCheck(ordersCheckDTO, numberOrder);
+        logService.addLog("log", "Замовлення", "Редагування замовлення", "Замовлення №" + numberOrder + "Успішно змінено, додано елемент в чек-лист: " + ordersCheckDTO.getName());
         return "redirect:/order/" + numberOrder + "/edit";
     }
 
     @GetMapping("/order/{numberOrder}/edit/check/del")
     public String orderEditDelCheck(@RequestParam String del, @PathVariable(value = "numberOrder") long numberOrder, Model model) {
         orderService.orderDellCheck(Long.parseLong(del), Math.toIntExact(numberOrder));
+        logService.addLog("log", "Замовлення", "Редагування замовлення", "Замовлення №" + numberOrder + "Успішно змінено, видалено елемент з чек-листу " + del);
         return "redirect:/order/" + numberOrder + "/edit";
     }
 
@@ -150,6 +158,7 @@ public class OrderController {
     public String createOrder(@ModelAttribute("ordersDTO") OrdersDTO ordersDTO, HttpServletRequest request, Model model) {
 
         if (orderService.orderCreate(ordersDTO, request.getUserPrincipal().getName()) == null) {
+            logService.addLog("log", "Замовлення", "Створення замовлення", "Створено нове замовлення користувачем:@" + request.getUserPrincipal().getName());
             return "redirect:/order/" + ordersDTO.getOrderNumber();
         } else {
             return "order-create";
@@ -209,6 +218,7 @@ public class OrderController {
         ordersDTO = ordersRepository.findByOrderNumber(numberOrder);
         ordersDTO.setArchive("Так");
         ordersRepository.save(ordersDTO);
+        logService.addLog("log", "Замовлення", "Редагування замовлення", "Замовлення №" + numberOrder + "Перенесено до архіву");
         return "redirect:/order/management";
     }
 
@@ -218,6 +228,7 @@ public class OrderController {
         ordersDTO = ordersRepository.findByOrderNumber(numberOrder);
         ordersDTO.setArchive("Ні");
         ordersRepository.save(ordersDTO);
+        logService.addLog("log", "Замовлення", "Редагування замовлення", "Замовлення №" + numberOrder + "Перенесено з архіву");
         return "redirect:/order/management/archive";
     }
 
@@ -226,6 +237,7 @@ public class OrderController {
         OrdersDTO ordersDTO = new OrdersDTO();
         ordersDTO = ordersRepository.findByOrderNumber(numberOrder);
         ordersRepository.delete(ordersDTO);
+        logService.addLog("log", "Замовлення", "Видалено замовлення", "Замовлення №" + numberOrder);
         return "redirect:/order/management";
     }
 
@@ -235,6 +247,7 @@ public class OrderController {
         ordersDTO = ordersRepository.findByOrderNumber(numberOrder);
         ordersDTO.setStatusWork("Опрацювання");
         ordersRepository.save(ordersDTO);
+        logService.addLog("log", "Замовлення", "Редагування замовлення", "Замовлення №" + numberOrder + ". Змінено статус на опрацювання");
         return "redirect:/order/management";
     }
 
@@ -244,6 +257,7 @@ public class OrderController {
         ordersDTO = ordersRepository.findByOrderNumber(numberOrder);
         ordersDTO.setStatusWork("Підтверджено");
         ordersRepository.save(ordersDTO);
+        logService.addLog("log", "Замовлення", "Редагування замовлення", "Замовлення №" + numberOrder + ". Змінено статус на підтверджено");
         return "redirect:/order/management";
     }
 
@@ -253,6 +267,7 @@ public class OrderController {
         ordersDTO = ordersRepository.findByOrderNumber(numberOrder);
         ordersDTO.setStatusWork("Виконується");
         ordersRepository.save(ordersDTO);
+        logService.addLog("log", "Замовлення", "Редагування замовлення", "Замовлення №" + numberOrder + ". Змінено статус на виконується");
         return "redirect:/order/management";
     }
 
@@ -262,6 +277,7 @@ public class OrderController {
         ordersDTO = ordersRepository.findByOrderNumber(numberOrder);
         ordersDTO.setStatusWork("Виконано");
         ordersRepository.save(ordersDTO);
+        logService.addLog("log", "Замовлення", "Редагування замовлення", "Замовлення №" + numberOrder + ". Змінено статус на виконано");
         return "redirect:/order/management";
     }
 
