@@ -47,9 +47,10 @@ public class OrderService {
     }
 
     private void orderCreateSave(OrdersDTO ordersDTO) {
+        OrdersDTO ordersDTOLogic = new OrdersDTO();
         if (ordersDTO.getUsername() == null) {
-            OrdersDTO ordersDTO1 = ordersRepository.findByOrderNumber(ordersDTO.orderNumber);
-            ordersDTO.setUsername(ordersDTO1.username);
+            ordersDTOLogic = ordersRepository.findByOrderNumber(ordersDTO.orderNumber);
+            ordersDTO.setUsername(ordersDTOLogic.username);
         }
         if (ordersDTO.getOrderNumber() == 0) {
             ordersDTO.setOrderNumber(orderCreateNumber());
@@ -59,8 +60,10 @@ public class OrderService {
         if (ordersDTO.getLink() == null) {
             ordersDTO.setLink("window.location='/order/"+ordersDTO.getOrderNumber() + "';");
         }
-        if (ordersDTO.getDateCreateOrder() == null) {
+        if (ordersDTOLogic.getStatusWork() == null) {
             ordersDTO.setStatusWork("Опрацювання");
+        } else {
+            ordersDTO.setStatusWork(ordersDTOLogic.getStatusWork());
         }
         if (ordersDTO.getDateCreateOrder() == null) {
             ordersDTO.setDateCreateOrder(String.valueOf(timestamp));

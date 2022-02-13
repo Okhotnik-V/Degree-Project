@@ -7,5 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface TransactionsInfoRepository extends MongoRepository<TransactionsInfoDTO, ObjectId> {
+    TransactionsInfoDTO findByNumber(long number);
+    List<TransactionsInfoDTO> findByLogicDate(String date);
     List<TransactionsInfoDTO> findAllByUsername(String username);
 }

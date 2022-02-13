@@ -10,19 +10,21 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-@Document(collection = "TransactionsInfo")
+@Document(collection = "Transactions")
 public class TransactionsInfoDTO {
 
     @Id
     public ObjectId id;
     public long number;
+    public String username;
     public String type;
     public int clocks_work;
     public String info;
     public String full_info;
     public int money;
-    public String username;
-    public Timestamp date;
+    public String usernameCreator;
+    public String date;
+    public String logicDate;
     public String link;
 
 }

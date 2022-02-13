@@ -1,46 +1,46 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>service station</title>
     <meta name="description" content="Дипломний проект Охота В.В.">
-    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/icon.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/icon.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/icon.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/icon.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/icon.png">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
-    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
-    <link rel="stylesheet" href="assets/css/accoutant-page.css">
-    <link rel="stylesheet" href="assets/css/Bootstrap-4-Calendar-No-Custom-Code.css">
-    <link rel="stylesheet" href="assets/css/Bootstrap-Calendar.css">
-    <link rel="stylesheet" href="assets/css/Brands.css">
-    <link rel="stylesheet" href="assets/css/dialog-page.css">
-    <link rel="stylesheet" href="assets/css/director-page.css">
-    <link rel="stylesheet" href="assets/css/Features-Blue.css">
-    <link rel="stylesheet" href="assets/css/Features-Boxed.css">
-    <link rel="stylesheet" href="assets/css/Features-Clean.css">
-    <link rel="stylesheet" href="assets/css/Footer-Dark.css">
-    <link rel="stylesheet" href="assets/css/Highlight-Blue.css">
-    <link rel="stylesheet" href="assets/css/Highlight-Clean.css">
-    <link rel="stylesheet" href="assets/css/Highlight-Phone.css">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/icon.png">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="/assets/fonts/material-icons.min.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="/assets/css/accoutant-page.css">
+    <link rel="stylesheet" href="/assets/css/Bootstrap-4-Calendar-No-Custom-Code.css">
+    <link rel="stylesheet" href="/assets/css/Bootstrap-Calendar.css">
+    <link rel="stylesheet" href="/assets/css/Brands.css">
+    <link rel="stylesheet" href="/assets/css/dialog-page.css">
+    <link rel="stylesheet" href="/assets/css/director-page.css">
+    <link rel="stylesheet" href="/assets/css/Features-Blue.css">
+    <link rel="stylesheet" href="/assets/css/Features-Boxed.css">
+    <link rel="stylesheet" href="/assets/css/Features-Clean.css">
+    <link rel="stylesheet" href="/assets/css/Footer-Dark.css">
+    <link rel="stylesheet" href="/assets/css/Highlight-Blue.css">
+    <link rel="stylesheet" href="/assets/css/Highlight-Clean.css">
+    <link rel="stylesheet" href="/assets/css/Highlight-Phone.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
-    <link rel="stylesheet" href="assets/css/Lightbox-Gallery.css">
+    <link rel="stylesheet" href="/assets/css/Lightbox-Gallery.css">
     <link rel="stylesheet" href="assets/css/Map-Clean.css">
-    <link rel="stylesheet" href="assets/css/Modern-Contact-Form.css">
-    <link rel="stylesheet" href="assets/css/Navigation-with-Button.css">
-    <link rel="stylesheet" href="assets/css/Newsletter-Subscription-Form.css">
-    <link rel="stylesheet" href="assets/css/Projects-Clean.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/Team-Clean.css">
-    <link rel="stylesheet" href="assets/css/Team-Grid.css">
-    <link rel="stylesheet" href="assets/css/Testimonials.css">
+    <link rel="stylesheet" href="/assets/css/Modern-Contact-Form.css">
+    <link rel="stylesheet" href="/assets/css/Navigation-with-Button.css">
+    <link rel="stylesheet" href="/assets/css/Newsletter-Subscription-Form.css">
+    <link rel="stylesheet" href="/assets/css/Projects-Clean.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/Team-Clean.css">
+    <link rel="stylesheet" href="/assets/css/Team-Grid.css">
+    <link rel="stylesheet" href="/assets/css/Testimonials.css">
 </head>
 
 <body>
@@ -67,16 +67,16 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <p class="card-text" style="font-size: 21px;"><span>Транзакція Id:&nbsp;</span><span>10</span></p>
+                            <p class="card-text" style="font-size: 21px;"><span>Транзакція Id:&nbsp;</span><span th:text="${Number}"></span></p>
                             <hr>
-                            <p class="card-text"><span>Призначення:&nbsp;</span><span>Зарплата</span></p>
-                            <p class="card-text"><span>Ідентифікатор користувача:&nbsp;</span><span>@_okhotnik_</span></p>
-                            <p class="card-text"><span>Пропрацьовано годин:&nbsp;</span><span>200</span></p>
-                            <p class="card-text"><span>Короткі деталі:&nbsp;</span><span>Зарплата</span></p>
-                            <p class="card-text"><span>Повна інформація:&nbsp;</span><span>Зарплата</span></p>
-                            <p class="card-text"><span>Сума:&nbsp;</span><span>Зарплата</span></p>
-                            <p class="card-text" style="text-align: right;"><span>Видано:</span>&nbsp;<span>Менеджер</span>&nbsp;<a href="#"><span>Менеджер</span></a></p>
-                            <p class="card-text" style="text-align: right;"><span>Дата:&nbsp;</span><span>22.22.22</span></p>
+                            <p class="card-text"><span>Призначення:&nbsp;</span><span th:text="${Type}"></span></p>
+                            <p class="card-text"><span>Ідентифікатор користувача:&nbsp;</span><span th:text="${Username}"></span></p>
+                            <p class="card-text"><span>Пропрацьовано годин:&nbsp;</span><span th:text="${ClockWork}"></span></p>
+                            <p class="card-text"><span>Короткі деталі:&nbsp;</span><span th:text="${Info}"></span></p>
+                            <p class="card-text"><span>Повна інформація:&nbsp;</span><span th:text="${FullInfo}"></span></p>
+                            <p class="card-text"><span>Сума:&nbsp;</span><span th:text="${Money}"></span></p>
+                            <p class="card-text" style="text-align: right;"><span>Видано:</span>&nbsp;<span th:text="${CreatorRole}"></span>&nbsp;<a th:href="'/@' + ${UsernameCreator}"><span th:text="${UsernameCreator}"></span></a></p>
+                            <p class="card-text" style="text-align: right;"><span>Дата:&nbsp;</span><span th:text="${Date}"></span></p>
                             <div>
                                 <hr>
                                 <div class="accordion" role="tablist" id="accordion-1">
@@ -84,15 +84,15 @@
                                         <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-1" aria-expanded="false" aria-controls="accordion-1 .item-1">Редагувати<br></button></h2>
                                         <div class="accordion-collapse collapse item-1" role="tabpanel" data-bs-parent="#accordion-1">
                                             <div class="accordion-body">
-                                                <form>
-                                                    <p><span>Призначення:&nbsp;</span><input class="form-control" type="text"><span style="color: var(--bs-red);">Помилка</span></p>
-                                                    <p><span>Ідентифікатор користувача:&nbsp;</span><input class="form-control" type="text"><span style="color: var(--bs-red);">Помилка</span></p>
-                                                    <p><span>Пропрацьовано годин:&nbsp;</span><input class="form-control" type="number"><span style="color: var(--bs-red);">Помилка</span></p>
-                                                    <p><span>Короткі деталі:&nbsp;</span><input class="form-control" type="text"><span style="color: var(--bs-red);">Помилка</span></p>
-                                                    <p><span>Повна інформація:&nbsp;</span><textarea class="form-control"></textarea><span style="color: var(--bs-red);">Помилка</span></p>
-                                                    <p><span>Сума:&nbsp;</span><input class="form-control" type="number"><span style="color: var(--bs-red);">Помилка</span></p>
-                                                    <p style="text-align: left;"><span>Видано (ідентифікатор працівника):</span><input class="form-control" type="text"><span style="color: var(--bs-red);">Помилка</span></p>
-                                                    <p style="text-align: left;"><span>Дата:&nbsp;</span><input class="form-control" type="datetime-local"><span style="color: var(--bs-red);">Помилка</span></p>
+                                                <form th:method="POST" th:action="'/transactions/' + ${Number} + '/edit'" th:object="${transactionsInfoDTO}">
+                                                    <p><span>Призначення:&nbsp;</span><input class="form-control" type="text" th:value="${Type}" th:name="type"></p>
+                                                    <p><span>Ідентифікатор користувача:&nbsp;</span><input class="form-control" type="text" th:value="${Username}" th:name="username"></p>
+                                                    <p><span>Пропрацьовано годин:&nbsp;</span><input class="form-control" type="number" th:value="${ClockWork}" th:name="clocks_work"></p>
+                                                    <p><span>Короткі деталі:&nbsp;</span><input class="form-control" type="text" th:value="${Info}" th:name="info"></p>
+                                                    <p><span>Повна інформація:&nbsp;</span><input class="form-control" th:value="${FullInfo}" th:name="full_info"></input></p>
+                                                    <p><span>Сума:&nbsp;</span><input class="form-control" type="number" th:value="${Money}" th:name="money"></p>
+                                                    <p style="text-align: left;"><span>Видано (ідентифікатор працівника):</span><input class="form-control" type="text" th:value="${UsernameCreator}" th:name="usernameCreator"></p>
+                                                    <p style="text-align: left;"><span>Дата:&nbsp;</span><input class="form-control" type="datetime-local" th:value="${Date}" th:name="date"></p>
                                                     <p class="text-center" style="text-align: left;"><button class="btn btn-primary" type="submit" style="background: rgb(255,204,30);">Зберегти</button></p>
                                                 </form>
                                             </div>
@@ -102,7 +102,7 @@
                                         <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-2" aria-expanded="false" aria-controls="accordion-1 .item-2">Видалити</button></h2>
                                         <div class="accordion-collapse collapse item-2" role="tabpanel" data-bs-parent="#accordion-1">
                                             <div class="accordion-body">
-                                                <p style="font-size: 21px;text-align: right;"><a class="btn btn-primary" role="button" href="#" style="background: var(--bs-red);">Видалити</a></p>
+                                                <p style="font-size: 21px;text-align: right;"><a class="btn btn-primary" role="button" th:href="'/transactions/' + ${Number} + '/dell'" style="background: var(--bs-red);">Видалити</a></p>
                                             </div>
                                         </div>
                                     </div>
@@ -147,11 +147,11 @@
             <p class="copyright">СТО © 2022</p>
         </div>
     </footer>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/js/bs-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
-    <script src="assets/js/Lightbox-Gallery.js"></script>
+    <script src="/assets/js/Lightbox-Gallery.js"></script>
 </body>
 
 </html>
