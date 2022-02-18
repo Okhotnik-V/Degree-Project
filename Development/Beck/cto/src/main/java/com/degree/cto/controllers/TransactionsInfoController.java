@@ -52,9 +52,9 @@ public class TransactionsInfoController {
 
     @GetMapping("/transactions/{numberTransactions}/dell")
     public String transactionsDell (@PathVariable(value = "numberTransactions") long numberTransactions) {
+        logService.addLog("log", "Виплати", "Видалено інформацію про виплату", "Виплата №" + numberTransactions + " працівником:@" + transactionsInfoRepository.findByNumber(numberTransactions).getUsernameCreator());
         TransactionsInfoDTO transactionsInfoDTO = transactionsInfoRepository.findByNumber(numberTransactions);
         transactionsInfoRepository.delete(transactionsInfoDTO);
-        logService.addLog("log", "Виплати", "Видалено інформацію про виплату", "Виплата №" + numberTransactions + " працівником:@" + transactionsInfoRepository.findByNumber(numberTransactions).getUsernameCreator());
-        return "redirect:/accountant";
+        return "redirect:/accountant/";
     }
 }

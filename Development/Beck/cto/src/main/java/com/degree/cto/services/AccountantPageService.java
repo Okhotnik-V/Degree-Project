@@ -129,7 +129,7 @@ public class AccountantPageService {
         } else if (transactionsInfoDTO.getType() != null && transactionsInfoDTO.getDate() != null) {
             transactionsInfoDTO.setNumber(transactionsNumberCheck());
             transactionsInfoDTO.setUsernameCreator(usernameCreator);
-            transactionsInfoDTO.setLogicDate((transactionsInfoDTO.date));
+            transactionsInfoDTO.setLogicDate((transactionsInfoDTO.date.substring(0,10)));
             transactionsInfoDTO.setLink("window.location='/transactions/" + transactionsInfoDTO.getNumber() + "';");
             transactionsInfoRepository.save(transactionsInfoDTO);
             return true;
