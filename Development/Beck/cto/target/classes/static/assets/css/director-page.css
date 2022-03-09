@@ -1,0 +1,30 @@
+@media (min-width: 992px) {
+  .director-page-create-news-textarea {
+    height: 200px;
+  }
+}
+
+@media (min-width: 768px) {
+  .director-page-create-news-table {
+    height: 354px;
+  }
+}
+
+@media (min-width: 992px) {
+  .director-page-create-news-table {
+    height: 491px;
+  }
+}
+
+@media (min-width: 100px) {
+  .director-page-system-messages {
+    height: 350px;
+  }
+}
+
+@media (min-width: 768px) {
+  .director-page-system-messages {
+    height: 700px;
+  }
+}
+
