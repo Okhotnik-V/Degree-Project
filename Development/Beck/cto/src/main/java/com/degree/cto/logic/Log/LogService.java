@@ -28,11 +28,22 @@ public class LogService {
 
     private String createLogicDate() {
         String date = timestamp.toLocalDateTime().toString();
-        date.substring(0,10);
-        return date;
+        return date.substring(0,10);
     }
 
-    public List<LogDTO> findAllLogs() {
+    public List<LogDTO> findFilterList(String date) {
+        if (date != null) {
+            return findByLogicDateDays(date);
+        } else {
+            return findAllLogs();
+        }
+    }
+
+    private List<LogDTO> findAllLogs() {
         return logRepository.findAll();
+    }
+
+    private List<LogDTO> findByLogicDateDays(String date) {
+        return logRepository.findByLogicDateDays(date);
     }
 }

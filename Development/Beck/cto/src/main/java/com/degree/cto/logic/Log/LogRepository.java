@@ -8,10 +8,5 @@ import java.util.List;
 
 @Repository
 public interface LogRepository  extends MongoRepository<LogDTO, ObjectId> {
-    List<LogDTO> findByType(String type);
-    List<LogDTO> findByName(String name);
-    List<LogDTO> findByNameAndType(String name, String type);
-    List<LogDTO> findByTypeAndLogicDateDays(String type, String date);
-    List<LogDTO> findByNameAndLogicDateDays(String name, String date);
-    List<LogDTO> findByTypeAndNameAndLogicDateDays(String type, String name, String date);
+    List<LogDTO> findByLogicDateDays(String date);
 }
