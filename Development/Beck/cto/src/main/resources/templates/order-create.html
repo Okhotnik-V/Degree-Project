@@ -68,19 +68,18 @@
                 <div class="row">
                     <div class="col-md-6">
                         <hr>
-                        <p style="font-size: 18px;color: var(--bs-red);">Дані поля заповнюються автоматично з даних профілю!</p>
                         <p><span>Замовник:&nbsp;<input class="form-control" type="text" readonly="" th:value="${UserName}" th:name="username"></span></p>
-                        <p><span>Номер телефону:&nbsp;</span><input class="form-control" type="tel" readonly="" th:value="${UserPhone}"></p>
-                        <p><span>Електрона пошта:&nbsp;</span><input class="form-control" type="email" readonly="" th:value="${UserEmail}"></p>
+                        <p><span>Номер телефону:&nbsp;</span><input class="form-control" type="tel" th:value="${UserPhone}"></p>
+                        <p><span>Електрона пошта:&nbsp;</span><input class="form-control" type="email" th:value="${UserEmail}"></p>
                     </div>
                     <div class="col-md-6">
                         <hr>
-                        <p><span>Марка авто:&nbsp;<input class="form-control" type="text" th:name="brandCar"><span style="color: var(--bs-red);">Помилка</span></span></p>
-                        <p><span>Модель авто:&nbsp;<input class="form-control" type="text" th:name="modelCar"><span style="color: var(--bs-red);">Помилка</span></span></p>
-                        <p><span>Рік виготовлення авто:&nbsp;</span><input class="form-control" type="month" th:name="yearsCar"><span style="color: var(--bs-red);">Помилка</span></p>
+                        <p><span>Марка авто:&nbsp;<input class="form-control" type="text" th:name="brandCar"></span></p>
+                        <p><span>Модель авто:&nbsp;<input class="form-control" type="text" th:name="modelCar"></span></p>
+                        <p><span>Рік виготовлення авто:&nbsp;</span><input class="form-control" type="month" th:name="yearsCar"></p>
                         <p><span>Тип роботи:&nbsp;</span><input class="form-control" type="text" th:name="service"></p>
                         <p><span>Бажаний час виконання діагнитики та подальшого ремонту:&nbsp;</span><input class="form-control" type="date" th:name="dateWork"></p>
-                        <p><span>Зателефонувати для підтвердження замовлення (Стандартний процес підтвердження через месенджер telegram, viber, facebook):&nbsp;</span><input type="checkbox" th:name="phoneCall" value="Ні"><span>&nbsp;Ні</span></p>
+                        <p><span>Зателефонувати для підтвердження замовлення (Стандартний процес підтвердження повідомлення через месенджер telegram, viber, facebook):&nbsp;</span><input type="checkbox" th:name="phoneCall" value="Ні"><span>&nbsp;Ні</span></p>
                         <p><span>Коментар:&nbsp;</span><textarea class="form-control" th:name="message"></textarea></p>
                         <p class="text-center"><button class="btn btn-primary" type="submit" style="background: rgb(255,204,30);">Зберегти</button></p>
                     </div>
