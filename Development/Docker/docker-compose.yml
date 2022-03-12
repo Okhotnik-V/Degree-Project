@@ -1,0 +1,53 @@
+version: "3"
+
+services:
+
+  mongodb:
+    container_name: mongo-devnet
+    image: mongo
+    ports:
+      - "2001:27017"
+    environment:
+      MONGO_INITDB_DATABASE: devmongo
+    volumes:
+      - ./mongodb/mongod.conf:/etc/mongod.conf
+      - ./mongodb/initdb.d/:/docker-entrypoint-initdb.d/
+      - ./mongodb/data/db/:/data/db/
+      - ./mongodb/mongodb/data/log/:/var/log/mongodb/
+    restart: always
+
+  mysqldb:
+    container_name: mysql-devnet
+    image: mysql
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: devnet
+      MYSQL_DATABASE: keycloak
+    volumes:
+      - ./mysql/dbdata:/var/lib/mysql
+    ports:
+      - "2002:3306"
+    restart: always
+
+  keycloak:
+    image: jboss/keycloak
+    container_name: keycloak-devnet
+    depends_on:
+      - mysqldb
+    environment:
+      - DB_VENDOR=MYSQL
+      - DB_ADDR=mysqldb
+      - DB_PORT=3306
+      - DB_DATABASE=keycloak
+      - DB_USER=root
+      - DB_PASSWORD=devnet
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=Pa55w0rdOkhotnikPOyt52
+      - KEYCLOAK_STATISTICS=all
+      - PROXY_ADDRESS_FORWARDING=true
+      - VIRTUAL_HOST=http://localhost
+    volumes:
+      - ./keycloak:/data
+    ports:
+      - "2003:8080"
+    restart: always

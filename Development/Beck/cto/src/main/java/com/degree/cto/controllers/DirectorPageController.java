@@ -19,12 +19,21 @@ public class DirectorPageController {
     public String director(Model model) {
         model.addAttribute("DateLogStart", "Від першого");
         model.addAttribute("DateLogEnd", "До останнього");
-        model.addAttribute("Logs", logService.findAllLogs());
+        model.addAttribute("Logs", logService.findFilterList(null));
         return "director-page";
     }
 
     @PostMapping("director")
     public String director(@ModelAttribute(value = "findLogDTO") FindLogDTO findLogDTO, Model model) {
+        if (findLogDTO.getDate() != "") {
+            model.addAttribute("DateLogStart", "Вибрано день");
+            model.addAttribute("DateLogEnd", findLogDTO.getDate());
+            model.addAttribute("Logs", logService.findFilterList(findLogDTO.getDate()));
+        } else {
+            model.addAttribute("DateLogStart", "Від першого");
+            model.addAttribute("DateLogEnd", "До останнього");
+            model.addAttribute("Logs", logService.findFilterList(null));
+        }
         return "director-page";
     }
 }

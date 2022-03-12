@@ -16,6 +16,7 @@ public class ReviewsDTO {
     @Id
     public ObjectId id;
     public String text;
-    public Timestamp timestamp;
+    public String timestamp;
     public String username;
+    public String user_image;
 }

@@ -60,14 +60,10 @@
     </nav>
     <div class="carousel slide" data-bs-ride="carousel" id="carousel-1" style="height: 700;">
         <div class="carousel-inner" style="height: 700;">
-            <div class="carousel-item active" style="filter: blur(0px) sepia(0%);"><a id="link-slider" href="https://google.com">
-                    <h1 class="text-center d-block" id="header-slider-text" style="color: rgb(255,255,255);">Ремонт автомобілів</h1><img class="img-fluid image-dark-filter" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/2019_Tesla_Model_3%2C_Front_Left%2C_05-30-2021.jpg/1200px-2019_Tesla_Model_3%2C_Front_Left%2C_05-30-2021.jpg" alt="Slide Image" loading="auto" style="width: 100%;">
-                </a></div>
+            <div class="carousel-item active" style="filter: blur(0px) sepia(0%);">
+                    <h1 class="text-center d-block" id="header-slider-text" style="color: rgb(255,255,255);"></h1><img class="img-fluid image-dark-filter" src="/assets/img/home-car.png" alt="Slide Image" loading="auto" style="width: 100%;">
+            </div>
         </div>
-        <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a></div>
-        <ol class="carousel-indicators">
-            <li data-bs-target="#carousel-1" data-bs-slide-to="0" class="active"></li>
-        </ol>
     </div>
     <section style="margin-top: 12px;">
         <div class="container">
@@ -125,12 +121,12 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3" th:each="elServ : ${Services}">
                     <div class="card" style="margin-bottom: 10px;">
-                        <div class="card-body card-product-home" style="cursor: pointer; cursor: hand;" onclick="window.location=&#39;/&#39;;"><img src="assets/img/loft.jpg" width="100%">
-                            <h1 style="font-size: 22px;color: rgb(255,204,30);">Заміна двигуна</h1>
-                            <p>Якісний двигун це сила</p>
-                            <p style="font-size: 14px;text-align: right;">Ціна від 1000$</p>
+                        <div class="card-body card-product-home" style="cursor: pointer; cursor: hand;" onclick="window.location='/order/create';"><img th:src="${elServ.image_url}" width="100%">
+                            <h1 style="font-size: 22px;color: rgb(255,204,30);" th:text="${elServ.name}"></h1>
+                            <p th:text="${elServ.text}"></p>
+                            <p style="font-size: 14px;text-align: right;" th:text="${elServ.price}"></p>
                         </div>
                     </div>
                 </div>
@@ -157,7 +153,7 @@
                             <p class="text-start"><i class="icon ion-email" style="color: rgb(255,204,30);"></i>&nbsp; vadim2000ohota@gmail.com</p>
                             <p class="text-start"><i class="fa fa-map" style="color: rgb(255,204,30);"></i>&nbsp; Хмельницький вул. Інституцька</p>
                         </div>
-                        <div class="buttons"><a class="btn btn-primary" role="button" href="#" style="background: rgb(255,204,30);">Залишити заяву онлайн<br></a><a class="btn btn-primary" role="button" href="#" style="background: rgb(255,204,30);">вВійти в особистий кабіне<br></a></div>
+                        <div class="buttons"><a class="btn btn-primary" role="button" href="/order/create" style="background: rgb(255,204,30);">Залишити заяву онлайн<br></a><a class="btn btn-primary" role="button" href="/personal-page" style="background: rgb(255,204,30);">вВійти в особистий кабіне<br></a></div>
                     </div>
                 </section>
             </div>
@@ -173,10 +169,10 @@
                 <p class="text-center">Текст за працівників<br><br></p>
             </div>
             <div class="row people">
-                <div class="col-md-6 col-lg-4 item"><img class="rounded-circle" src="assets/img/1.jpg">
-                    <h3 class="name">Ім'я</h3>
-                    <p class="title">посада</p>
-                    <p class="description">Текст знизу</p>
+                <div class="col-md-6 col-lg-4 item" th:each="elTeam : ${Team}">
+                    <img class="rounded-circle" th:src="${elTeam.photo_url}">
+                    <h3 class="name" th:text="${elTeam.name}"></h3>
+                    <p class="title" th:text="${elTeam.role}"></p>
                 </div>
             </div>
         </div>
@@ -188,14 +184,15 @@
                 <p class="text-center" style="color: rgba(255,255,255,0.6);">Партнерство це щось там&nbsp;&nbsp;</p>
             </div>
             <div class="row people">
-                <div class="col-md-4 col-lg-3 item">
-                    <div class="box" style="background-image:url(assets/img/1.jpg)">
+                <div class="col-md-4 col-lg-3 item" th:each="elPart : ${Partners}">
+                    <div class="box"  th:style="${elPart.image_url}">
                         <div class="cover">
-                            <h3 class="name">Назва</h3>
-                            <p class="title">Спеціалізація</p>
+                            <h3 class="name" th:text="${elPart.name}"></h3>
+                            <p class="title" th:text="${elPart.text}"></p>
                         </div>
                     </div>
                 </div>
+            </div>
     </section>
     <section id="Reviews-section" class="testimonials-clean" style="background: rgb(238, 244, 247);">
         <div class="container">
@@ -204,14 +201,13 @@
                 <p class="text-center">Відгуки це щось там, но поки nic<br></p>
             </div>
             <div class="row people">
-                <div class="col-md-6 col-lg-4 item">
+                <div class="col-md-6 col-lg-4 item" th:each="elRev : ${Reviews}">
                     <div class="box">
-                        <p class="description">Відгук</p>
-                        <p class="text-end description">Дата</p>
+                        <p class="description" th:text="${elRev.text}"></p>
+                        <p class="text-end description" th:text="${elRev.timestamp}"></p>
                     </div>
-                    <div class="author"><img class="rounded-circle" src="assets/img/1.jpg">
-                        <h5 class="name">Ім'я</h5>
-                        <p class="title">компанія</p>
+                    <div class="author"><img class="rounded-circle" th:src="${elRev.user_image}">
+                        <h5 class="name" th:text="${elRev.username}"></h5>
                     </div>
                 </div>
     </section>

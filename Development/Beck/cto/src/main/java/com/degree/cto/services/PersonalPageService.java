@@ -26,8 +26,9 @@ public class PersonalPageService {
     }
 
     public void createReviews(ReviewsDTO reviewsDTO, String username) {
-        reviewsDTO.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        reviewsDTO.setTimestamp(String.valueOf(new Timestamp(System.currentTimeMillis())).substring(0,10));
         reviewsDTO.setUsername(username);
+        reviewsDTO.setUser_image(usersRepository.findByPersonalIndent(reviewsDTO.username).getPhoto_url());
         reviewsRepository.save(reviewsDTO);
     }
 

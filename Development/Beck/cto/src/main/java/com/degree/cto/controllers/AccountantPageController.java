@@ -51,7 +51,6 @@ public class AccountantPageController {
         model.addAttribute("Transactions", accountantPageService.transactionsInfoDTOS(infoDTO.logicDate));
         model.addAttribute("TransactionsOrders", accountantPageService.ordersDTOList(infoDTO.logicDate));
 
-        logService.addLog("log", "Виплата", infoDTO.getType(), "Виконано виплату №" + infoDTO.getNumber() +". Cума:" + infoDTO.money);
         return "accountant-page";
     }
 
