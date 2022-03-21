@@ -16,9 +16,6 @@ public class SecurityService {
     @Autowired
     private LogService logService;
 
-
-    private OrderStatusDAO autoCreateCollections;
-
     public String profileCheck(String url, String pageName, String personal_indent) {
         if (userRepository.findByPersonalIndent(personal_indent) == null) {
             return "redirect:/authorize/confirm?url=" + url;
@@ -33,8 +30,22 @@ public class SecurityService {
         usersDTO.setEmail(email);
         usersDTO.setPersonalIndent(username);
         usersDTO.setStatus("Клієнт");
-        usersDTO.setPhoto_url("/assets/img/not-image.jpg");
+        int randomAvatar = 1 + (int) (Math.random() * 10);
+        usersDTO.setPhoto_url("/assets/img/avatars/clients/" + randomAvatar + ".JPG");
         userRepository.save(usersDTO);
         logService.addLog("log", "Користувачі", "Новий користува", "Користувач:@"+ username + " приєднався до сервісу");
+    }
+
+    public String customAccess(String page, String username, String role_1, String role_2) {
+        try {
+            String userRole = userRepository.findByPersonalIndent(username).getRole();
+            if (userRole.contentEquals(role_1) || userRole.contentEquals(role_2)) {
+                return page;
+            } else {
+                return "redirect:/personal-page";
+            }
+        } catch (Exception e) {
+            return "redirect:/personal-page";
+        }
     }
 }

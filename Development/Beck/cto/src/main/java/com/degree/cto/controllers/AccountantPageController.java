@@ -4,6 +4,7 @@ import com.degree.cto.dtos.OrdersDTO;
 import com.degree.cto.dtos.TransactionsInfoDTO;
 import com.degree.cto.logic.Log.LogService;
 import com.degree.cto.repositorys.TransactionsInfoRepository;
+import com.degree.cto.security.SecurityService;
 import com.degree.cto.services.AccountantPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,8 +26,11 @@ public class AccountantPageController {
     @Autowired
     private AccountantPageService accountantPageService;
 
+    @Autowired
+    private SecurityService securityService;
+
     @GetMapping("/accountant")
-    public String accountantPage(Model model) {
+    public String accountantPage(Model model, HttpServletRequest request) {
         long[] moneyInfo = accountantPageService.ordersDTOListFindAndTransactionsMoney(accountantPageService.defaultDate());
         model.addAttribute("Date", accountantPageService.defaultDate());
         model.addAttribute("Profit", moneyInfo[0]);
@@ -36,11 +40,11 @@ public class AccountantPageController {
 
         model.addAttribute("Transactions", accountantPageService.transactionsInfoDTOS(accountantPageService.defaultDate()));
         model.addAttribute("TransactionsOrders", accountantPageService.ordersDTOList(accountantPageService.defaultDate()));
-        return "accountant-page";
+        return securityService.customAccess("accountant-page", request.getUserPrincipal().getName(), "Бухгалтер", "Директор");
     }
 
     @PostMapping("/accountant")
-    public String accountantPage(@ModelAttribute(value = "infoDto") TransactionsInfoDTO infoDTO , Model model) {
+    public String accountantPage(@ModelAttribute(value = "infoDto") TransactionsInfoDTO infoDTO , Model model, HttpServletRequest request) {
         long[] moneyInfo = accountantPageService.ordersDTOListFindAndTransactionsMoney(infoDTO.logicDate);
         model.addAttribute("Date", infoDTO.logicDate);
         model.addAttribute("Profit", moneyInfo[0]);
@@ -51,17 +55,21 @@ public class AccountantPageController {
         model.addAttribute("Transactions", accountantPageService.transactionsInfoDTOS(infoDTO.logicDate));
         model.addAttribute("TransactionsOrders", accountantPageService.ordersDTOList(infoDTO.logicDate));
 
-        return "accountant-page";
+        return securityService.customAccess("accountant-page", request.getUserPrincipal().getName(), "Бухгалтер", "Директор");
     }
 
     @PostMapping("/accountant/addCoast")
     public String accountantAddCoast(@ModelAttribute(value = "tDTO") TransactionsInfoDTO tDTO, HttpServletRequest request, Model model) {
-        if (accountantPageService.addCoast(tDTO, request.getUserPrincipal().getName())) {
-            logService.addLog("log", "Виплата", tDTO.getType(), "Виконано виплату №" + tDTO.getNumber() +". Cума:" + tDTO.money);
-            return "redirect:/accountant";
+        if (securityService.customAccess("accountant-page", request.getUserPrincipal().getName(), "Бухгалтер", "Директор") != "redirect:/personal-page") {
+            if (accountantPageService.addCoast(tDTO, request.getUserPrincipal().getName())) {
+                logService.addLog("log", "Виплата", tDTO.getType(), "Виконано виплату №" + tDTO.getNumber() + ". Cума:" + tDTO.money);
+                return "redirect:/accountant";
+            } else {
+                model.addAttribute("Error", "Помилка: Потрібно заповнити усі поля!");
+                return securityService.customAccess("accountant-page", request.getUserPrincipal().getName(), "Бухгалтер", "Директор");
+            }
         } else {
-            model.addAttribute("Error","Помилка: Потрібно заповнити усі поля!");
-            return "accountant-page";
+            return "redirect:/personal-page";
         }
     }
 }

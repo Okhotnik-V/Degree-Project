@@ -50,6 +50,8 @@ public class TeamManagementController {
             UsersDTO usersDTOLogic = usersRepository.findByPersonalIndent(usersDTO.getPersonalIndent());
             usersDTOLogic.setStatus("Працівник");
             usersDTOLogic.setRole(usersDTO.getRole());
+            int randomAvatar = 1 + (int) (Math.random() * 4);
+            usersDTOLogic.setPhoto_url("/assets/img/avatars/teams/" + randomAvatar + ".JPG");
             usersRepository.save(usersDTOLogic);
             logService.addLog("log", "Працівники", "Додавання працівника", "Користувач:@" + usersDTO.getPersonalIndent() + " тепер працівник");
             return "redirect:/team/management";
