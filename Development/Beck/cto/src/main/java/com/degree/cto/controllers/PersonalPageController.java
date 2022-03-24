@@ -77,7 +77,7 @@ public class PersonalPageController {
         model.addAttribute("usernameUser", usersDTO.getPersonalIndent());
         model.addAttribute("phoneUser", usersDTO.getPhone());
         model.addAttribute("photoUser", usersDTO.getPhoto_url());
-        model.addAttribute("statusUser", usersDTO.getStatus());
+        model.addAttribute("statusUser", usersDTO.getStatus() + " | " + usersDTO.getRole());
 
         model.addAttribute("TransactionsInfoList", transactionsInfoRepository.findAllByUsername(username));
 
@@ -95,13 +95,17 @@ public class PersonalPageController {
     }
 
     @PostMapping("/@{username}/edit")
-    public String personalPageEdit(@ModelAttribute("usersDTO") UsersDTO  usersDTO, @PathVariable(value = "username") String username) {
-        UsersDTO dto = usersRepository.findByPersonalIndent(username);
-        dto.setName(usersDTO.getName());
-        dto.setPhone(usersDTO.getPhone());
-        dto.setEmail(usersDTO.getEmail());
-        usersRepository.save(dto);
-        logService.addLog("log", "Користувачі", "Зміна особистої інформації", "Користувач:@"+ username + " змінив особисту інформацію.");
-        return "redirect:/@" + username;
+    public String personalPageEdit(@ModelAttribute("usersDTO") UsersDTO usersDTO, @PathVariable(value = "username") String username, HttpServletRequest request) {
+        if (username.contentEquals(request.getUserPrincipal().getName())) {
+            UsersDTO dto = usersRepository.findByPersonalIndent(username);
+            dto.setName(usersDTO.getName());
+            dto.setPhone(usersDTO.getPhone());
+            dto.setEmail(usersDTO.getEmail());
+            usersRepository.save(dto);
+            logService.addLog("log", "Користувачі", "Зміна особистої інформації", "Користувач:@" + username + " змінив особисту інформацію.");
+            return "redirect:/@" + username;
+        } else {
+            return "redirect:/personal-page";
+        }
     }
 }

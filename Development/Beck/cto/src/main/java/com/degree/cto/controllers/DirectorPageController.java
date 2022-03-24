@@ -21,25 +21,33 @@ public class DirectorPageController {
     @Autowired
     private SecurityService securityService;
 
-    @GetMapping("director")
+    @GetMapping("/director")
     public String director(Model model, HttpServletRequest request) {
-        model.addAttribute("DateLogStart", "Від першого");
-        model.addAttribute("DateLogEnd", "До останнього");
-        model.addAttribute("Logs", logService.findFilterList(null));
-        return securityService.customAccess("director-page", request.getUserPrincipal().getName(), "Директор", "Директор");
-    }
-
-    @PostMapping("director")
-    public String director(@ModelAttribute(value = "findLogDTO") FindLogDTO findLogDTO, Model model, HttpServletRequest request) {
-        if (findLogDTO.getDate() != "") {
-            model.addAttribute("DateLogStart", "Вибрано день");
-            model.addAttribute("DateLogEnd", findLogDTO.getDate());
-            model.addAttribute("Logs", logService.findFilterList(findLogDTO.getDate()));
-        } else {
+        if (securityService.customAccess("/director", request.getUserPrincipal().getName(), "Директор", "Директор") != "redirect:/personal-page") {
             model.addAttribute("DateLogStart", "Від першого");
             model.addAttribute("DateLogEnd", "До останнього");
             model.addAttribute("Logs", logService.findFilterList(null));
+            return securityService.customAccess("director-page", request.getUserPrincipal().getName(), "Директор", "Директор");
+        } else {
+            return "redirect:/personal-page";
         }
-        return securityService.customAccess("director-page", request.getUserPrincipal().getName(), "Директор", "Директор");
+    }
+
+    @PostMapping("/director")
+    public String director(@ModelAttribute(value = "findLogDTO") FindLogDTO findLogDTO, Model model, HttpServletRequest request) {
+        if (securityService.customAccess("/director", request.getUserPrincipal().getName(), "Директор", "Директор") != "redirect:/personal-page") {
+            if (findLogDTO.getDate() != "") {
+                model.addAttribute("DateLogStart", "Вибрано день");
+                model.addAttribute("DateLogEnd", findLogDTO.getDate());
+                model.addAttribute("Logs", logService.findFilterList(findLogDTO.getDate()));
+            } else {
+                model.addAttribute("DateLogStart", "Від першого");
+                model.addAttribute("DateLogEnd", "До останнього");
+                model.addAttribute("Logs", logService.findFilterList(null));
+            }
+            return securityService.customAccess("director-page", request.getUserPrincipal().getName(), "Директор", "Директор");
+        } else {
+            return "redirect:/personal-page";
+        }
     }
 }
