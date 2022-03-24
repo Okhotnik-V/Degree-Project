@@ -45,7 +45,6 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/resources/**", "/static/**", "/assets/**").permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers("/per").hasRole("DIRECTOR")
                 .anyRequest().authenticated()
                 .and()
                 .logout()
