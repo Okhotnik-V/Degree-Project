@@ -30,6 +30,7 @@ public class SecurityService {
         usersDTO.setEmail(email);
         usersDTO.setPersonalIndent(username);
         usersDTO.setStatus("Клієнт");
+        usersDTO.setRole("");
         int randomAvatar = 1 + (int) (Math.random() * 10);
         usersDTO.setPhoto_url("/assets/img/avatars/clients/" + randomAvatar + ".JPG");
         userRepository.save(usersDTO);

@@ -47,6 +47,16 @@ public class PersonalPageController {
     @GetMapping("/@{username}")
     public String personalPage(@PathVariable(value = "username") String username, Model model, HttpServletRequest request) {
         try {
+
+            //<header>
+            try {
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Менеджер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessCRM", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Рекрутер")){model.addAttribute("TeamAccess", "yes") ;model.addAttribute("TeamAccessTeam", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Бухгалтер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessAcc", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Директор")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessDirector", "yes");}
+            } catch (NullPointerException e){}
+            //</header>
+
             model.addAttribute("EditAccess", personalPageService.editAccess(request.getUserPrincipal().getName(), username));
 
             UsersDTO usersDTO = usersRepository.findByPersonalIndent(username);
@@ -56,6 +66,7 @@ public class PersonalPageController {
             model.addAttribute("phoneUser", usersDTO.getPhone());
             model.addAttribute("photoUser", usersDTO.getPhoto_url());
             model.addAttribute("statusUser", usersDTO.getStatus());
+            model.addAttribute("roleUser", usersDTO.getRole());
 
             model.addAttribute("TransactionsInfoList", transactionsInfoRepository.findAllByUsername(username));
 
@@ -71,6 +82,15 @@ public class PersonalPageController {
     public String personalPage(@ModelAttribute("reviewsDTO") ReviewsDTO reviewsDTO, @PathVariable(value = "username") String username, HttpServletRequest request, Model model) {
         model.addAttribute("EditAccess", personalPageService.editAccess(request.getUserPrincipal().getName(), username));
 
+        //<header>
+        try {
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Менеджер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessCRM", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Рекрутер")){model.addAttribute("TeamAccess", "yes") ;model.addAttribute("TeamAccessTeam", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Бухгалтер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessAcc", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Директор")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessDirector", "yes");}
+        } catch (NullPointerException e){}
+        //</header>
+
         UsersDTO usersDTO = usersRepository.findByPersonalIndent(username);
         model.addAttribute("nameUser", usersDTO.getName());
         model.addAttribute("emailUser", usersDTO.getEmail());
@@ -78,6 +98,7 @@ public class PersonalPageController {
         model.addAttribute("phoneUser", usersDTO.getPhone());
         model.addAttribute("photoUser", usersDTO.getPhoto_url());
         model.addAttribute("statusUser", usersDTO.getStatus() + " | " + usersDTO.getRole());
+        model.addAttribute("roleUser", usersDTO.getRole());
 
         model.addAttribute("TransactionsInfoList", transactionsInfoRepository.findAllByUsername(username));
 

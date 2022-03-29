@@ -49,6 +49,14 @@ public class OrderController {
 
     @GetMapping("/order/{numberOrder}")
     public String order(@PathVariable(value = "numberOrder") long numberOrder, Model model, HttpServletRequest request) {
+        //<header>
+        try {
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Менеджер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessCRM", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Рекрутер")){model.addAttribute("TeamAccess", "yes") ;model.addAttribute("TeamAccessTeam", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Бухгалтер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessAcc", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Директор")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessDirector", "yes");}
+        } catch (NullPointerException e){}
+        //</header>
         OrdersDTO ordersDTO = ordersRepository.findByOrderNumber(numberOrder);
         List<OrdersCheckDTO> ordersCheckDTOList = ordersCheckRepository.findAllByNumberOrder(numberOrder);
         List<OrdersWorkTeamDTO> ordersWorkTeamDTOList = ordersWorkTeamRepository.findAllByNumberOrder(numberOrder);
@@ -78,6 +86,15 @@ public class OrderController {
     @GetMapping("/order/{numberOrder}/edit")
     public String orderEdit(@PathVariable(value = "numberOrder") long numberOrder, Model model, HttpServletRequest request) {
         if (securityService.customAccess("order-edit", request.getUserPrincipal().getName(), "Менеджер", "Директор") != "redirect:/personal-page") {
+
+            //<header>
+            try {
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Менеджер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessCRM", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Рекрутер")){model.addAttribute("TeamAccess", "yes") ;model.addAttribute("TeamAccessTeam", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Бухгалтер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessAcc", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Директор")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessDirector", "yes");}
+            } catch (NullPointerException e){}
+            //</header>
 
             autoCreateCollections.CheckCollectionsOrderStatus();
 
@@ -114,6 +131,14 @@ public class OrderController {
 
     @PostMapping("/order/{numberOrder}/edit")
     public String orderEditSave(@PathVariable(value = "numberOrder") long numberOrder, @ModelAttribute(value = "ordersDTOEdit") OrdersDTO ordersDTOEdit, Model model, HttpServletRequest request) {
+        //<header>
+        try {
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Менеджер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessCRM", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Рекрутер")){model.addAttribute("TeamAccess", "yes") ;model.addAttribute("TeamAccessTeam", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Бухгалтер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessAcc", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Директор")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessDirector", "yes");}
+        } catch (NullPointerException e){}
+        //</header>
         if (securityService.customAccess("order-edit", request.getUserPrincipal().getName(), "Менеджер", "Директор") != "redirect:/personal-page") {
             autoCreateCollections.CheckCollectionsOrderStatus();
 
@@ -180,6 +205,14 @@ public class OrderController {
 
     @GetMapping("/order/create")
     public String createOrder(HttpServletRequest request, Model model) {
+        //<header>
+        try {
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Менеджер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessCRM", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Рекрутер")){model.addAttribute("TeamAccess", "yes") ;model.addAttribute("TeamAccessTeam", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Бухгалтер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessAcc", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Директор")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessDirector", "yes");}
+        } catch (NullPointerException e){}
+        //</header>
         UsersDTO usersDTO = usersRepository.findByPersonalIndent(request.getUserPrincipal().getName());
         model.addAttribute("UserName", usersDTO.getPersonalIndent());
         model.addAttribute("UserPhone", usersDTO.getPhone());
@@ -189,7 +222,14 @@ public class OrderController {
 
     @PostMapping("/order/create")
     public String createOrder(@ModelAttribute("ordersDTO") OrdersDTO ordersDTO, HttpServletRequest request, Model model) {
-
+        //<header>
+        try {
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Менеджер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessCRM", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Рекрутер")){model.addAttribute("TeamAccess", "yes") ;model.addAttribute("TeamAccessTeam", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Бухгалтер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessAcc", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Директор")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessDirector", "yes");}
+        } catch (NullPointerException e){}
+        //</header>
         if (orderService.orderCreate(ordersDTO, request.getUserPrincipal().getName()) == null) {
             logService.addLog("log", "Замовлення", "Створення замовлення", "Створено нове замовлення користувачем:@" + request.getUserPrincipal().getName());
             return "redirect:/order/" + ordersDTO.getOrderNumber();
@@ -200,6 +240,14 @@ public class OrderController {
 
     @GetMapping("/order/management")
     public String management(Model model, HttpServletRequest request) {
+        //<header>
+        try {
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Менеджер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessCRM", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Рекрутер")){model.addAttribute("TeamAccess", "yes") ;model.addAttribute("TeamAccessTeam", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Бухгалтер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessAcc", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Директор")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessDirector", "yes");}
+        } catch (NullPointerException e){}
+        //</header>
         if (securityService.customAccess("order-edit", request.getUserPrincipal().getName(), "Менеджер", "Директор") != "redirect:/personal-page") {
             List<OrdersDTO> allOrders = ordersRepository.findByArchive("Ні");
             List<OrdersDTO> newOrders = ordersRepository.findByStatusWorkAndArchive("Опрацювання", "Ні");
@@ -231,6 +279,14 @@ public class OrderController {
             if (ordersDTO.getOrderNumber() == 0) {
                 return "redirect:/order/management";
             } else {
+                //<header>
+                try {
+                    if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Менеджер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessCRM", "yes");}
+                    if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Рекрутер")){model.addAttribute("TeamAccess", "yes") ;model.addAttribute("TeamAccessTeam", "yes");}
+                    if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Бухгалтер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessAcc", "yes");}
+                    if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Директор")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessDirector", "yes");}
+                } catch (NullPointerException e){}
+                //</header>
                 List<OrdersDTO> allOrders = ordersRepository.findByArchive("Ні");
                 List<OrdersDTO> newOrders = ordersRepository.findByOrderNumberAndStatusWorkAndArchive(ordersDTO.orderNumber, "Опрацювання", "Ні");
                 List<OrdersDTO> confirmedOrders = ordersRepository.findByOrderNumberAndStatusWorkAndArchive(ordersDTO.orderNumber, "Підтверджено", "Ні");
@@ -357,6 +413,14 @@ public class OrderController {
     @GetMapping("/order/management/archive")
     public String managementArchive(Model model, HttpServletRequest request) {
         if (securityService.customAccess("order-edit", request.getUserPrincipal().getName(), "Менеджер", "Директор") != "redirect:/personal-page") {
+            //<header>
+            try {
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Менеджер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessCRM", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Рекрутер")){model.addAttribute("TeamAccess", "yes") ;model.addAttribute("TeamAccessTeam", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Бухгалтер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessAcc", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Директор")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessDirector", "yes");}
+            } catch (NullPointerException e){}
+            //</header>
             List<OrdersDTO> ordersDTOS = ordersRepository.findByArchive("Так");
             model.addAttribute("OrdersSize", ordersDTOS.size());
             model.addAttribute("Orders", ordersDTOS);
@@ -369,6 +433,14 @@ public class OrderController {
     @PostMapping("/order/management/archive/find")
     public String managementArchiveFind(@ModelAttribute("ordersDTO") OrdersDTO ordersDTO, Model model, HttpServletRequest request) {
         if (securityService.customAccess("order-edit", request.getUserPrincipal().getName(), "Менеджер", "Директор") != "redirect:/personal-page") {
+            //<header>
+            try {
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Менеджер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessCRM", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Рекрутер")){model.addAttribute("TeamAccess", "yes") ;model.addAttribute("TeamAccessTeam", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Бухгалтер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessAcc", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Директор")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessDirector", "yes");}
+            } catch (NullPointerException e){}
+            //</header>
             if (ordersDTO.getOrderNumber() == 0) {
                 return securityService.customAccess("redirect:/order/management/archive", request.getUserPrincipal().getName(), "Менеджер", "Директор");
             } else {

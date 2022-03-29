@@ -15,6 +15,7 @@ public class ReviewsDTO {
 
     @Id
     public ObjectId id;
+    public long logicId;
     public String text;
     public String timestamp;
     public String username;

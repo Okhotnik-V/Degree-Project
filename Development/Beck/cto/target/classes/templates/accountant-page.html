@@ -44,22 +44,23 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light navbar-expand-lg navigation-clean-button" style="background: rgb(238,244,247);">
-        <div class="container"><a class="navbar-brand" href="home.html" style="color: #000000;"><i class="fas fa-car" style="font-size: 24px;color: rgb(255,204,30);"></i><span>СТО</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navcol-2">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Створити замовлення</a></li>
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">Функції працівника&nbsp;</a>
-                        <div class="dropdown-menu"><a class="dropdown-item" href="#">CRM</a><a class="dropdown-item" href="#">Відділ кадрів</a><a class="dropdown-item" href="#">Бухгалтерська</a><a class="dropdown-item" href="#">Кабінет директора</a></div>
-                    </li>
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fa fa-envelope-o"></i><sup style="color: var(--bs-blue);">+1</sup></a>
-                        <div class="dropdown-menu"><a class="dropdown-item" href="#"><span>Оголошення</span><sup style="color: var(--bs-blue);">+1</sup></a><a class="dropdown-item" href="#"><span>Діалоги</span><sup style="color: var(--bs-blue);">+1</sup></a></div>
-                    </li>
-                </ul><span class="navbar-text actions" style="color: var(--bs-blue);"> <a id="navbar-register" class="login" href="#">Вихід</a><a class="btn btn-light action-button" role="button" id="navbar-spun-buton" href="#">Особистий кабінет</a></span>
-            </div>
+<nav class="navbar navbar-light navbar-expand-lg navigation-clean-button" style="background: rgb(238,244,247);">
+    <div class="container"><a class="navbar-brand" href="/" style="color: #000000;"><i class="fas fa-car" style="font-size: 24px;color: rgb(255,204,30);"></i><span>СТО</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"></li>
+                <li class="nav-item"><a class="nav-link" href="/order/create">Створити замовлення</a></li>
+                <li class="nav-item dropdown" th:if="${TeamAccess == 'yes'}"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">Функції працівника&nbsp;</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/order/management" th:if="${TeamAccessCRM == 'yes' || TeamAccessDirector == 'yes'}">CRM</a>
+                        <a class="dropdown-item" href="/team/management" th:if="${TeamAccessTeam == 'yes' || TeamAccessDirector == 'yes'}">Відділ кадрів</a>
+                        <a class="dropdown-item" href="/accountant" th:if="${TeamAccessAcc == 'yes' || TeamAccessDirector == 'yes'}">Бухгалтерська</a>
+                        <a class="dropdown-item" href="/director" th:if="${TeamAccessDirector == 'yes'}">Кабінет директора</a></div>
+                </li>
+            </ul><span class="navbar-text actions" style="color: var(--bs-blue);"> <a id="navbar-register" class="login" href="/logout">Вихід</a><a class="btn btn-light action-button" role="button" id="navbar-spun-buton" href="/personal-page">Особистий кабінет</a></span>
         </div>
-    </nav>
+    </div>
+</nav>
     <section>
         <div class="container">
             <div class="row">
@@ -303,7 +304,7 @@
                         <li><a href="/#Info-section">Переваги</a></li>
                         <li><a href="/#Service-section">Послуги</a></li>
                         <li><a href="/#Contacts-section">Контакти</a></li>
-                        <li><a href="/#Contacts-section">Працівники</a></li>
+                        <li><a href="/#Team-section">Керівники</a></li>
                         <li><a href="/#Partners-section">Партнери</a></li>
                         <li><a href="/#Reviews-section">Відгуки</a></li>
                     </ul>
