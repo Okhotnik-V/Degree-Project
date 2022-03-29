@@ -45,16 +45,17 @@
 
 <body style="background: var(--bs-dark);">
     <nav class="navbar navbar-light navbar-expand-lg navigation-clean-button" style="background: rgb(238,244,247);">
-        <div class="container"><i class="fas fa-car" style="font-size: 42px;color: rgb(255,204,30);"></i><a class="navbar-brand" href="home.html" style="color: #000000;">СТО</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><i class="fas fa-car" style="font-size: 42px;color: rgb(255,204,30);"></i><a class="navbar-brand" href="/" style="color: #000000;">СТО</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="home.html#Info-section" style="border-color: var(--bs-body-color);filter: blur(0px);">Переваги</a></li>
-                    <li class="nav-item"><a class="nav-link" href="home.html#Service-section" style="border-color: var(--bs-body-color);filter: blur(0px);">Послуги</a></li>
-                    <li class="nav-item"><a class="nav-link" href="home.html#Contacts-section" style="border-color: var(--bs-body-color);filter: blur(0px);">Контакти</a></li>
-                    <li class="nav-item"><a class="nav-link" href="home.html#Contacts-section" style="border-color: var(--bs-body-color);filter: blur(0px);">Працівники</a></li>
-                    <li class="nav-item"><a class="nav-link" href="home.html#Partners-section" style="border-color: var(--bs-body-color);filter: blur(0px);">Партнери</a></li>
-                    <li class="nav-item"><a class="nav-link" href="home.html#Reviews-section" style="border-color: var(--bs-body-color);filter: blur(0px);">Відгуки</a></li>
-                </ul><span class="navbar-text actions" style="color: var(--bs-blue);"> <a id="navbar-register" class="login" href="#">Реєстрація</a><a class="btn btn-light action-button" role="button" id="navbar-spun-buton" href="#">Вхід</a></span><span class="navbar-text actions" style="color: var(--bs-blue);"> <a class="btn btn-light action-button" role="button" id="navbar-spun-buton" href="#">Особистий кабінет</a></span>
+                    <li class="nav-item"><a class="nav-link" href="/#Info-section" style="border-color: var(--bs-body-color);filter: blur(0px);">Переваги</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#Service-section" style="border-color: var(--bs-body-color);filter: blur(0px);">Послуги</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#Contacts-section" style="border-color: var(--bs-body-color);filter: blur(0px);">Контакти</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#Team-section" style="border-color: var(--bs-body-color);filter: blur(0px);">Керівники</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#Partners-section" style="border-color: var(--bs-body-color);filter: blur(0px);">Партнери</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#Reviews-section" style="border-color: var(--bs-body-color);filter: blur(0px);">Відгуки</a></li>
+                </ul><span class="navbar-text actions" style="color: var(--bs-blue);" th:if="${Auth == 'no'}"> <a id="navbar-register" class="login" href="#"></a><a class="btn btn-light action-button" role="button" id="navbar-spun-buton" href="/personal-page">Реєстрація/Вхід</a></span>
+                <span class="navbar-text actions" style="color: var(--bs-blue);" th:if="${Auth == 'yes'}"> <a class="btn btn-light action-button" role="button" id="navbar-spun-buton" href="/personal-page">Особистий кабінет</a></span>
             </div>
         </div>
     </nav>
@@ -83,15 +84,15 @@
             <div class="row features">
                 <div class="col-sm-6 col-md-4 item"><i class="fa fa-map-marker icon"></i>
                     <h3 class="name">Розташування</h3>
-                    <p class="description">Сервіс знаходиться у центральній частині місця та має комфортні заїзди на тереторію, та комфортні парковки.</p>
+                    <p class="description">Сервіс знаходиться у центральній частині міста та має комфортні заїзди на тереторію та парковки.</p>
                 </div>
                 <div class="col-sm-6 col-md-4 item"><i class="fa fa-clock-o icon"></i>
                     <h3 class="name">Швидко</h3>
-                    <p class="description">Виконуюме роботу без зайвого. Коротко і по суті.</p>
+                    <p class="description">Виконуємо роботу без зайвого. Коротко і по суті.</p>
                 </div>
                 <div class="col-sm-6 col-md-4 item"><i class="fa fa-list-alt icon" style="color: rgb(255, 204, 30);"></i>
                     <h3 class="name">Зручне бронювання&nbsp;</h3>
-                    <p class="description">Запис можливий на сайті по телефону чи месенджерах.</p>
+                    <p class="description">Запис можливий на сайті, по телефону чи месенджерах.</p>
                 </div>
                 <div class="col-sm-6 col-md-4 item"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-people-fill icon">
                         <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
@@ -103,11 +104,11 @@
                 </div>
                 <div class="col-sm-6 col-md-4 item"><i class="fa fa-dollar icon"></i>
                     <h3 class="name">Конкурентні ціни</h3>
-                    <p class="description">Також доступні спецальні знижки для наших клієнтів ;)</p>
+                    <p class="description">Також доступні спеціальні знижки для наших клієнтів ;)</p>
                 </div>
                 <div class="col-sm-6 col-md-4 item"><i class="material-icons icon">settings</i>
                     <h3 class="name">Якісні запчастини</h3>
-                    <p class="description">Використовуємо тільки оригінальні запчастини або тільки надійних виробників які себе зарекомендували</p>
+                    <p class="description">Використовуємо тільки оригінальні запчастини або тільки надійних виробників, які себе зарекомендували</p>
                 </div>
             </div>
         </div>
@@ -164,8 +165,8 @@
     </div>
     <section class="team-clean" style="background: rgb(255, 255, 255);">
         <div class="container">
-            <div class="intro">
-                <h2 class="text-center">Працівники</h2>
+            <div id="Team-section" class="intro">
+                <h2 class="text-center">Керівники</h2>
                 <p class="text-center">Для нас робота - це хобі<br><br></p>
             </div>
             <div class="row people">
@@ -173,6 +174,7 @@
                     <img class="rounded-circle" th:src="${elTeam.photo_url}">
                     <h3 class="name" th:text="${elTeam.name}"></h3>
                     <p class="title" th:text="${elTeam.role}"></p>
+                    <p class="title" th:text="${elTeam.email}"></p>
                 </div>
             </div>
         </div>
@@ -223,7 +225,7 @@
                         <li><a href="/#Info-section">Переваги</a></li>
                         <li><a href="/#Service-section">Послуги</a></li>
                         <li><a href="/#Contacts-section">Контакти</a></li>
-                        <li><a href="/#Contacts-section">Працівники</a></li>
+                        <li><a href="/#Team-section">Керівники</a></li>
                         <li><a href="/#Partners-section">Партнери</a></li>
                         <li><a href="/#Reviews-section">Відгуки</a></li>
                     </ul>

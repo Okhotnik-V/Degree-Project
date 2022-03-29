@@ -29,7 +29,14 @@ public class PersonalPageService {
         reviewsDTO.setTimestamp(String.valueOf(new Timestamp(System.currentTimeMillis())).substring(0,10));
         reviewsDTO.setUsername(username);
         reviewsDTO.setUser_image(usersRepository.findByPersonalIndent(reviewsDTO.username).getPhoto_url());
+        reviewsDTO.setLogicId(createLogicId());
         reviewsRepository.save(reviewsDTO);
+    }
+
+    private long createLogicId() {
+        long i;
+        for(i = 1; reviewsRepository.findByLogicId(i) != null; i++){ }
+        return i;
     }
 
     public String editAccess(String username, String urlPage) {

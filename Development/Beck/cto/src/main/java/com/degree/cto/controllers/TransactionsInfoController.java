@@ -32,6 +32,14 @@ public class TransactionsInfoController {
 
     @GetMapping("/transactions/{numberTransactions}")
     public String transactions(@PathVariable(value = "numberTransactions") long numberTransactions, Model model, HttpServletRequest request) {
+        //<header>
+        try {
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Менеджер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessCRM", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Рекрутер")){model.addAttribute("TeamAccess", "yes") ;model.addAttribute("TeamAccessTeam", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Бухгалтер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessAcc", "yes");}
+            if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Директор")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessDirector", "yes");}
+        } catch (NullPointerException e){}
+        //</header>
         TransactionsInfoDTO transactionsInfoDTO = transactionsInfoRepository.findByNumber(numberTransactions);
         model.addAttribute("Number", transactionsInfoDTO.getNumber());
         model.addAttribute("Type", transactionsInfoDTO.getType());

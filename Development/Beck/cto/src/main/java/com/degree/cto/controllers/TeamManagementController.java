@@ -30,6 +30,14 @@ public class TeamManagementController {
     @GetMapping("/team/management")
     public String teamManagement(Model model, HttpServletRequest request) {
         if (securityService.customAccess("/team/management", request.getUserPrincipal().getName(), "Рекрутер", "Директор") != "redirect:/personal-page") {
+            //<header>
+            try {
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Менеджер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessCRM", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Рекрутер")){model.addAttribute("TeamAccess", "yes") ;model.addAttribute("TeamAccessTeam", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Бухгалтер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessAcc", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Директор")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessDirector", "yes");}
+            } catch (NullPointerException e){}
+            //</header>
             List<UsersDTO> usersDTOList = usersRepository.findByStatus("Працівник");
             model.addAttribute("teamListSize", usersDTOList.size());
             model.addAttribute("teamList", usersDTOList);
@@ -42,6 +50,14 @@ public class TeamManagementController {
     @PostMapping("/team/management/find")
     public String teamManagementFind(@ModelAttribute(value = "usersDTO") UsersDTO usersDTO, Model model, HttpServletRequest request) {
         if (securityService.customAccess("/team/management", request.getUserPrincipal().getName(), "Рекрутер", "Директор") != "redirect:/personal-page") {
+            //<header>
+            try {
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Менеджер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessCRM", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Рекрутер")){model.addAttribute("TeamAccess", "yes") ;model.addAttribute("TeamAccessTeam", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Бухгалтер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessAcc", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Директор")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessDirector", "yes");}
+            } catch (NullPointerException e){}
+            //</header>
             UsersDTO usersDTLogic = usersRepository.findByPersonalIndent(usersDTO.getPersonalIndent());
             try {
                 if (usersDTLogic == null && usersDTLogic.getStatus() != "Працівник") {
@@ -63,6 +79,14 @@ public class TeamManagementController {
     @PostMapping("/team/management/add")
     public String teamManagementAdd(@ModelAttribute(value = "usersDTO") UsersDTO usersDTO, Model model, HttpServletRequest request) {
         if (securityService.customAccess("/team/management", request.getUserPrincipal().getName(), "Рекрутер", "Директор") != "redirect:/personal-page") {
+            //<header>
+            try {
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Менеджер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessCRM", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Рекрутер")){model.addAttribute("TeamAccess", "yes") ;model.addAttribute("TeamAccessTeam", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Бухгалтер")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessAcc", "yes");}
+                if (usersRepository.findByPersonalIndent(request.getUserPrincipal().getName()).getRole().contentEquals("Директор")){model.addAttribute("TeamAccess", "yes"); model.addAttribute("TeamAccessDirector", "yes");}
+            } catch (NullPointerException e){}
+            //</header>
             try {
                 UsersDTO usersDTOLogic = usersRepository.findByPersonalIndent(usersDTO.getPersonalIndent());
                 usersDTOLogic.setStatus("Працівник");

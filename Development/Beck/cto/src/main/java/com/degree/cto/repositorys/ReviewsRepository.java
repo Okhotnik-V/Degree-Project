@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReviewsRepository extends MongoRepository<ReviewsDTO, ObjectId> {
+    ReviewsDTO findByLogicId(long LogicId);
 }

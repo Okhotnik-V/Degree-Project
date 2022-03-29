@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface UsersRepository extends MongoRepository<UsersDTO, ObjectId> {
      UsersDTO findByPersonalIndent(String personal_indent);
+     List<UsersDTO> findByRole(String role);
      List<UsersDTO> findByStatus(String status);
      List<UsersDTO> findByPersonalIndentAndStatus(String personal_indent, String status);
 }

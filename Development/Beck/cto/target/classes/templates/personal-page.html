@@ -45,18 +45,19 @@
 
 <body>
     <nav class="navbar navbar-light navbar-expand-lg navigation-clean-button" style="background: rgb(238,244,247);">
-        <div class="container"><a class="navbar-brand" href="home.html" style="color: #000000;"><i class="fas fa-car" style="font-size: 24px;color: rgb(255,204,30);"></i><span>СТО</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand" href="/" style="color: #000000;"><i class="fas fa-car" style="font-size: 24px;color: rgb(255,204,30);"></i><span>СТО</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Створити замовлення</a></li>
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">Функції працівника&nbsp;</a>
-                        <div class="dropdown-menu"><a class="dropdown-item" href="#">CRM</a><a class="dropdown-item" href="#">Відділ кадрів</a><a class="dropdown-item" href="#">Бухгалтерська</a><a class="dropdown-item" href="#">Кабінет директора</a></div>
+                    <li class="nav-item"><a class="nav-link" href="/order/create">Створити замовлення</a></li>
+                    <li class="nav-item dropdown" th:if="${TeamAccess == 'yes'}"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">Функції працівника&nbsp;</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/order/management" th:if="${TeamAccessCRM == 'yes' || TeamAccessDirector == 'yes'}">CRM</a>
+                            <a class="dropdown-item" href="/team/management" th:if="${TeamAccessTeam == 'yes' || TeamAccessDirector == 'yes'}">Відділ кадрів</a>
+                            <a class="dropdown-item" href="/accountant" th:if="${TeamAccessAcc == 'yes' || TeamAccessDirector == 'yes'}">Бухгалтерська</a>
+                            <a class="dropdown-item" href="/director" th:if="${TeamAccessDirector == 'yes'}">Кабінет директора</a></div>
                     </li>
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fa fa-envelope-o"></i><sup style="color: var(--bs-blue);">+1</sup></a>
-                        <div class="dropdown-menu"><a class="dropdown-item" href="#"><span>Оголошення</span><sup style="color: var(--bs-blue);">+1</sup></a><a class="dropdown-item" href="#"><span>Діалоги</span><sup style="color: var(--bs-blue);">+1</sup></a></div>
-                    </li>
-                </ul><span class="navbar-text actions" style="color: var(--bs-blue);"> <a id="navbar-register" class="login" href="#">Вихід</a><a class="btn btn-light action-button" role="button" id="navbar-spun-buton" href="#">Особистий кабінет</a></span>
+                </ul><span class="navbar-text actions" style="color: var(--bs-blue);"> <a id="navbar-register" class="login" href="/logout">Вихід</a><a class="btn btn-light action-button" role="button" id="navbar-spun-buton" href="/personal-page">Особистий кабінет</a></span>
             </div>
         </div>
     </nav>
@@ -73,6 +74,7 @@
                                 <p><span>Телефон:</span>&nbsp;<span th:text="${phoneUser}"></span></p>
                                 <p><span>Пошта:</span>&nbsp;<span th:text="${emailUser}"></span></p>
                                 <p><span>Статус:</span>&nbsp;<span th:text="${statusUser}"></span></p>
+                                <p th:if="${statusUser == 'Працівник'}"><span>Посада:</span>&nbsp;<span th:text="${roleUser}"></span></p>
                             </div>
                             <hr>
                             <div class="accordion" role="tablist" id="accordion-1" th:if="${EditAccess=='true'}">
@@ -102,6 +104,7 @@
                 <section th:if="${EditAccess=='true'}">
                     <div class="col">
                         <hr>
+                        <span style="color: var(--bs-red);" th:text="${ReviewStatus}" th:if="${ReviewStatus != null}"></span></p>
                         <div class="accordion" role="tablist" id="accordion-2">
                             <div class="accordion-item" th:if="${statusUser!='Клієнт'}">
                                 <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-2 .item-2" aria-expanded="false" aria-controls="accordion-2 .item-2">Заробітна плата<br></button></h2>
@@ -130,7 +133,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <span style="color: var(--bs-red);" th:text="${ReviewStatus}" th:if="${ReviewStatus != null}"></span></p>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-2 .item-3" aria-expanded="false" aria-controls="accordion-2 .item-3">Замовлення</button></h2>
                                 <div class="accordion-collapse collapse item-3" role="tabpanel" data-bs-parent="#accordion-2">
@@ -171,6 +173,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr>
                         </div>
                     </div>
                 </section>
@@ -186,7 +189,7 @@
                         <li><a href="/#Info-section">Переваги</a></li>
                         <li><a href="/#Service-section">Послуги</a></li>
                         <li><a href="/#Contacts-section">Контакти</a></li>
-                        <li><a href="/#Contacts-section">Працівники</a></li>
+                        <li><a href="/#Team-section">Керівники</a></li>
                         <li><a href="/#Partners-section">Партнери</a></li>
                         <li><a href="/#Reviews-section">Відгуки</a></li>
                     </ul>
